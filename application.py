@@ -913,7 +913,7 @@ def login():
         person234 = User('US', generate_password_hash('33US45')
         db.session.add(person234)
         db.session.commit()
-        person235 = User('Chair', generate_password_hash('33Chair45')
+        person235 = User('Chair', generate_password_hash('chairMUN6')
         db.session.add(person235)
         db.session.commit()
 
