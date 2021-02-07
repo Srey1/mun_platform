@@ -37,7 +37,7 @@ def after_request(response):
     return response
 
 #FOR VOTE HTML
-# <meta http-equiv="refresh" content="5" >
+
 
 amt = 0
 
