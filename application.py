@@ -1,6 +1,6 @@
 import os
 
-from cs50 import SQL
+
 from flask import Flask, flash, jsonify, redirect, render_template, request, session
 from flask_session import Session
 #from tempfile import mkdtemp
@@ -8,15 +8,25 @@ from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from functions import login_required
+from flask_sqlalchemy import SQLAlchemy
 
 # Configure application
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
-# Ensure templates are auto-reloaded
-app.config["TEMPLATES_AUTO_RELOAD"] = True
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQL("sqlite:///finance.1.db")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    password = db.Column(db.String(80))
+
+    def __init__(self, name):
+        self.username = username
+        self.password = password
 
 # Ensure responses aren't cached
 @app.after_request
@@ -183,7 +193,7 @@ def vot():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    
+
 
 
 
@@ -325,11 +335,3 @@ def quick_close():
         country_hand = []
         type_hand = []
         return redirect("/")
-
-
-
-
-
-
-
-
