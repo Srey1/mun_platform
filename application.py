@@ -208,8 +208,8 @@ def login():
 
     # User reached route via POST (as by submitting a form via POST)
     else:
-        person0 = User('Afghanistan', generate_password_hash('33Afghanistan45')
-        db.session.add(person0)
+        person = User('Afghanistan', generate_password_hash('33Afghanistan45')
+        db.session.add(person)
         db.session.commit()
         person1 = User('Albania', generate_password_hash('33Albania45')
         db.session.add(person1)
