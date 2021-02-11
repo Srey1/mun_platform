@@ -230,7 +230,7 @@ def login():
         # Query database for username
         rows = User.query.filter_by(username=gg).first()
 
-        if rows.id == None:
+        if len(rows) == 0:
             print("Type SOMETHING")
             return render_template("login.html")
         print(rows.id)
@@ -250,12 +250,14 @@ def login():
         # Ensure username exists and password is correct
         #y = check_password_hash(rows[0]["password"], request.form.get("password"))
         if (str(rows.password) == str(aa)):
+            print("FOUND")
             session["user_id"] = rows.id
             if rows.username == "Chair":
                 redirect("/c")
             else:
                 return redirect("/")
         else:
+            print("NOT FOUND")
             return render_template("login.html")
 
         #if rows != "shouldnotbethis" or not check_password_hash(rows[0]["password"], request.form.get("password")):
