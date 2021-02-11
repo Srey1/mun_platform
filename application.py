@@ -42,10 +42,7 @@ class User(db.Model):
         return False
 
     def get_id(self):
-        try:
-            return text_type(self.id)
-        except AttributeError:
-            raise NotImplementedError('No `id` attribute - override `get_id`')
+        return self.username
 
 # Ensure responses aren't cached
 @app.after_request
@@ -86,7 +83,7 @@ type_hand = []
 x = False
 
 @app.route("/voting", methods=["GET", "POST"])
-@login_required
+#@login_required
 def voting():
 
     global counter
