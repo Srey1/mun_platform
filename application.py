@@ -225,7 +225,7 @@ def login():
 
         gg = request.form.get("username")
 
-        aa + request.form.get("password")
+        aa = request.form.get("password")
 
 
         # Query database for username
