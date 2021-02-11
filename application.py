@@ -101,7 +101,10 @@ def voting():
 
         vote = request.form.get("vote")
 
-        country = User.query.filter_by(username=current_user.username).first()
+        acountry = User.query.filter_by(username=current_user.username).first()
+        country = acountry.username
+        login_user(country)
+
         print(country)
 
         global countries
@@ -204,6 +207,7 @@ def vot():
 
     if request.method == "GET":
         country = User.query.filter_by(username=current_user.username).first()
+        login_user(country)
         acountry = country.username
         print(acountry)
         return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
