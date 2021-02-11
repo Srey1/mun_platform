@@ -101,8 +101,7 @@ def voting():
 
         vote = request.form.get("vote")
 
-        first_country = User.query.filter_by(id=current_user.id).first()
-        country = first_country.username
+        country = User.query.filter_by(id=current_user.username).first()
 
         global countries
 
