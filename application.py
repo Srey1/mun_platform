@@ -56,7 +56,7 @@ def after_request(response):
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.filter_by(id=user_id).first()
+    return User.query.get(int(user_id))
 
 
 amt = 0
@@ -83,7 +83,7 @@ type_hand = []
 x = False
 
 @app.route("/voting", methods=["GET", "POST"])
-#@login_required
+@login_required
 def voting():
 
     global counter
@@ -189,9 +189,9 @@ def voting():
         agains = len(counter2)
         obstain = len(counter1)
 
-        return redirect("/redirection")
+        return redirect("/")
 
-@app.route("/redirection", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
 #@login_required
 def vot():
 
@@ -211,7 +211,7 @@ def vot():
 
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
 
 
@@ -252,8 +252,6 @@ def login():
 
         # Query database for username
         rows = User.query.filter_by(username=gg).first()
-        a = rows
-        print(a)
         if rows == None:
             print("Type SOMETHING")
             return render_template("login.html")
@@ -276,10 +274,11 @@ def login():
         if (str(rows.password) == str(aa)):
             print("FOUND")
             login_user(rows)
-            if rows.username == "Chair":
-                redirect("/c")
-            else:
-                return redirect("/redirection")
+            return redirect("/")
+            #if rows.username == "Chair":
+            #    redirect("/c")
+            #else:
+
         print("NOT FOUND")
         return render_template("login.html")
 
@@ -297,7 +296,7 @@ def login():
 
 
 @app.route("/c", methods=["GET", "POST"])
-#@login_required
+@login_required
 def go():
     global forr
     global agains
@@ -310,7 +309,7 @@ def go():
 
 
 @app.route("/chair", methods=["GET", "POST"])
-#@login_required
+@login_required
 def chair():
     if request.method == "POST":
         global counter
@@ -337,13 +336,13 @@ def chair():
 
 
 @app.route("/quickrefresh", methods=["GET", "POST"])
-#@login_required
+@login_required
 def refresh():
     if request.method == "POST":
         return redirect("/c")
 
 @app.route("/raise", methods=["GET", "POST"])
-#@login_required
+@login_required
 def raise_hand():
     if request.method == "GET":
         return render_template("raise.html")
@@ -368,10 +367,10 @@ def raise_hand():
             country_hand.append(country_raise)
             type_hand.append(reason)
         number_track = len(country_hand)
-        return redirect("/redirection")
+        return redirect("/")
 
 @app.route("/quickraise", methods=["GET", "POST"])
-#@login_required
+@login_required
 def quick_raise():
     if request.method == "GET":
         return render_template("raise.html")
@@ -388,13 +387,13 @@ def quick_raise():
                 x = country_hand.index(current_count)
                 country_hand.pop(x)
                 type_hand.pop(x)
-                return redirect("/redirection")
+                return redirect("/")
 
 
         return render_template("raise.html")
 
 @app.route("/alldown", methods=["GET", "POST"])
-#@login_required
+@login_required
 def quick_close():
     if request.method == "POST":
         global type_hand
