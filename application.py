@@ -203,7 +203,7 @@ def login():
     session.clear()
 
     if request.method == "GET":
-        person0 = User('Afghanistan', generate_password_hash('33Afghanistan45'))
+        person0 = User('Afghanistan', '33Afghanistan45')
         db.session.add(person0)
         db.session.commit()
         person1 = User('Albania', generate_password_hash('33Albania45'))
