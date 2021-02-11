@@ -225,6 +225,8 @@ def login():
 
         gg = request.form.get("username")
 
+        aa + request.form.get("password")
+
 
         # Query database for username
         rows = User.query.filter_by(username=gg).first()
@@ -239,7 +241,7 @@ def login():
         #    return redirect("/login")
         # Ensure username exists and password is correct
         #y = check_password_hash(rows[0]["password"], request.form.get("password"))
-        if rows == "shouldnotbethis" or not check_password_hash(rows.password, request.form.get("password")):
+        if rows.password != aa):
             return render_template("login.html")
 
         #if rows != "shouldnotbethis" or not check_password_hash(rows[0]["password"], request.form.get("password")):
