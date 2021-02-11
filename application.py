@@ -60,6 +60,8 @@ number_hand = []
 country_hand = []
 type_hand = []
 
+x = False
+
 @app.route("/voting", methods=["GET", "POST"])
 @login_required
 
