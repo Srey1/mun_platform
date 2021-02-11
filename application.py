@@ -248,7 +248,11 @@ def login():
         #    return redirect("/login")
         # Ensure username exists and password is correct
         #y = check_password_hash(rows[0]["password"], request.form.get("password"))
-        if (rows.password != aa):
+        if (rows.password == aa):
+            session["user_id"] = rows.id
+
+            return redirect("/voting")
+        else:
             return render_template("login.html")
 
         #if rows != "shouldnotbethis" or not check_password_hash(rows[0]["password"], request.form.get("password")):
@@ -258,9 +262,6 @@ def login():
            # return apology("invalid", 403)
 
         # Remember which user has logged in
-        session["user_id"] = rows.id
-
-        return redirect("/")
 
 
 @app.route("/chair", methods=["GET", "POST"])
