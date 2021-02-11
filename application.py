@@ -42,10 +42,7 @@ class User(db.Model):
         return False
 
     def get_id(self):
-        try:
-            return unicode(self.username)
-        except AttributeError:
-            raise NotImplementedError('No `id` attribute - override `get_id`')
+        return self.id
 
 # Ensure responses aren't cached
 @app.after_request
