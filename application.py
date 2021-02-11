@@ -250,16 +250,17 @@ def login():
         #    return redirect("/login")
         # Ensure username exists and password is correct
         #y = check_password_hash(rows[0]["password"], request.form.get("password"))
-        if (str(rows.password) == str(aa)):
-            print("FOUND")
-            session["user_id"] = rows.id
-            if rows.username == "Chair":
-                redirect("/c")
-            else:
-                return redirect("/")
-        else:
+        if (str(rows.password) != str(aa)):
             print("NOT FOUND")
             return render_template("login.html")
+
+
+        print("FOUND")
+        session["user_id"] = rows.id
+        if rows.username == "Chair":
+            redirect("/c")
+        else:
+            return redirect("/")
 
         #if rows != "shouldnotbethis" or not check_password_hash(rows[0]["password"], request.form.get("password")):
         #    return render_template("login.html")
