@@ -230,8 +230,12 @@ def login():
 
         # Query database for username
         rows = User.query.filter_by(username=gg).first()
+        print(rows.id)
+        print(rows.username)
+        print(rows.password)
 
         if rows.password == None:
+            print("Type SOMETHING")
             return render_template("login.html")
 
         #print(rows)
