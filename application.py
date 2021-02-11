@@ -224,16 +224,20 @@ def login():
 
         aa = request.form.get("password")
 
+        print(f"USERNAME IS {gg} and PASSWORD is {aa}")
+
 
         # Query database for username
         rows = User.query.filter_by(username=gg).first()
+
+        if rows.id == None:
+            print("Type SOMETHING")
+            return render_template("login.html")
         print(rows.id)
         print(rows.username)
         print(rows.password)
 
-        if rows.password == None:
-            print("Type SOMETHING")
-            return render_template("login.html")
+
 
         #print(rows)
 
@@ -245,7 +249,7 @@ def login():
         #    return redirect("/login")
         # Ensure username exists and password is correct
         #y = check_password_hash(rows[0]["password"], request.form.get("password"))
-        if (rows.password == aa):
+        if (str(rows.password) == str(aa)):
             session["user_id"] = rows.id
             if rows.username == "Chair":
                 redirect("/c")
