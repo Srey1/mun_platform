@@ -189,9 +189,9 @@ def voting():
         agains = len(counter2)
         obstain = len(counter1)
 
-        return redirect("/")
+        return redirect("/redirection")
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/redirection", methods=["GET", "POST"])
 #@login_required
 def vot():
 
@@ -211,7 +211,7 @@ def vot():
 
 
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
 def login():
 
 
@@ -279,7 +279,7 @@ def login():
             if rows.username == "Chair":
                 redirect("/c")
             else:
-                return redirect("/")
+                return redirect("/redirection")
         print("NOT FOUND")
         return render_template("login.html")
 
@@ -368,7 +368,7 @@ def raise_hand():
             country_hand.append(country_raise)
             type_hand.append(reason)
         number_track = len(country_hand)
-        return redirect("/")
+        return redirect("/redirection")
 
 @app.route("/quickraise", methods=["GET", "POST"])
 #@login_required
@@ -388,7 +388,7 @@ def quick_raise():
                 x = country_hand.index(current_count)
                 country_hand.pop(x)
                 type_hand.pop(x)
-                return redirect("/")
+                return redirect("/redirection")
 
 
         return render_template("raise.html")
