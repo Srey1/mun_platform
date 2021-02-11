@@ -203,7 +203,7 @@ def login():
     session.clear()
 
     if request.method == "GET":
-        
+        print(generate_password_hash("33hello45"))
 
         return render_template("login.html")
 
