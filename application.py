@@ -56,7 +56,7 @@ def after_request(response):
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(id=user_id).first()
+    return User.query.filter_by(id=user_id).first()
 
 
 amt = 0
@@ -83,7 +83,7 @@ type_hand = []
 x = False
 
 @app.route("/voting", methods=["GET", "POST"])
-@login_required
+#@login_required
 def voting():
 
     global counter
@@ -192,7 +192,7 @@ def voting():
         return redirect("/")
 
 @app.route("/", methods=["GET", "POST"])
-@login_required
+#@login_required
 def vot():
 
     global forr
@@ -297,7 +297,7 @@ def login():
 
 
 @app.route("/c", methods=["GET", "POST"])
-@login_required
+#@login_required
 def go():
     global forr
     global agains
@@ -310,7 +310,7 @@ def go():
 
 
 @app.route("/chair", methods=["GET", "POST"])
-@login_required
+#@login_required
 def chair():
     if request.method == "POST":
         global counter
@@ -337,13 +337,13 @@ def chair():
 
 
 @app.route("/quickrefresh", methods=["GET", "POST"])
-@login_required
+#@login_required
 def refresh():
     if request.method == "POST":
         return redirect("/c")
 
 @app.route("/raise", methods=["GET", "POST"])
-@login_required
+#@login_required
 def raise_hand():
     if request.method == "GET":
         return render_template("raise.html")
@@ -371,7 +371,7 @@ def raise_hand():
         return redirect("/")
 
 @app.route("/quickraise", methods=["GET", "POST"])
-@login_required
+#@login_required
 def quick_raise():
     if request.method == "GET":
         return render_template("raise.html")
@@ -394,7 +394,7 @@ def quick_raise():
         return render_template("raise.html")
 
 @app.route("/alldown", methods=["GET", "POST"])
-@login_required
+#@login_required
 def quick_close():
     if request.method == "POST":
         global type_hand
