@@ -63,7 +63,7 @@ type_hand = []
 x = False
 
 @app.route("/voting", methods=["GET", "POST"])
-@login_required
+
 
 def voting():
 
@@ -172,7 +172,7 @@ def voting():
 
         return redirect("/")
 @app.route("/", methods=["GET", "POST"])
-@login_required
+
 def vot():
 
     global forr
@@ -183,6 +183,7 @@ def vot():
     global number_track
     before_country_raise = User.query.filter_by(id=session["user_id"]).first()
     current_country = before_country_raise.username
+    print(current_country)
 
     if request.method == "GET":
         return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
