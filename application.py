@@ -229,8 +229,9 @@ def login():
 
         # Query database for username
         rows = User.query.filter_by(username=gg).first()
-
-        if len(rows) == 0:
+        a = rows
+        print(a)
+        if rows == None:
             print("Type SOMETHING")
             return render_template("login.html")
         print(rows.id)
