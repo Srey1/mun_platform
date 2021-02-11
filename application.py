@@ -7,8 +7,10 @@ from flask_session import Session
 #from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from functions import login_required
+#from functions import login_required
 from flask_sqlalchemy import SQLAlchemy
+
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 # Configure application
 app = Flask(__name__)
@@ -18,6 +20,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -28,6 +32,18 @@ class User(db.Model):
         self.username = username
         self.password = password
 
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return str(self.id)
+
 # Ensure responses aren't cached
 @app.after_request
 def after_request(response):
@@ -37,6 +53,10 @@ def after_request(response):
     return response
 
 #FOR VOTE HTML
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(id=user_id).first()
 
 
 amt = 0
@@ -63,8 +83,7 @@ type_hand = []
 x = False
 
 @app.route("/voting", methods=["GET", "POST"])
-
-
+@login_required
 def voting():
 
     global counter
@@ -82,7 +101,7 @@ def voting():
 
         vote = request.form.get("vote")
 
-        first_country = User.query.filter_by(id=session["user_id"]).first()
+        first_country = User.query.filter_by(id=current_user.id).first()
         country = first_country.username
 
         global countries
@@ -171,8 +190,9 @@ def voting():
         obstain = len(counter1)
 
         return redirect("/")
-@app.route("/", methods=["GET", "POST"])
 
+@app.route("/", methods=["GET", "POST"])
+@login_required
 def vot():
 
     global forr
@@ -181,7 +201,7 @@ def vot():
     global type_hand
     global country_hand
     global number_track
-    before_country_raise = User.query.filter_by(id=session["user_id"]).first()
+    before_country_raise = User.query.filter_by(id=current_user.id).first()
     current_country = before_country_raise.username
     print(current_country)
 
@@ -253,17 +273,18 @@ def login():
         #    return redirect("/login")
         # Ensure username exists and password is correct
         #y = check_password_hash(rows[0]["password"], request.form.get("password"))
-        if (str(rows.password) != str(aa)):
-            print("NOT FOUND")
-            return render_template("login.html")
+        if (str(rows.password) == str(aa)):
+            print("FOUND")
+            login_user(rows)
+            if rows.username == "Chair":
+                redirect("/c")
+            else:
+                return redirect("/")
+        print("NOT FOUND")
+        return render_template("login.html")
 
 
-        print("FOUND")
-        session["user_id"] = rows.id
-        if rows.username == "Chair":
-            redirect("/c")
-        else:
-            return redirect("/")
+
 
         #if rows != "shouldnotbethis" or not check_password_hash(rows[0]["password"], request.form.get("password")):
         #    return render_template("login.html")
@@ -276,6 +297,7 @@ def login():
 
 
 @app.route("/c", methods=["GET", "POST"])
+@login_required
 def go():
     global forr
     global agains
@@ -288,6 +310,7 @@ def go():
 
 
 @app.route("/chair", methods=["GET", "POST"])
+@login_required
 def chair():
     if request.method == "POST":
         global counter
@@ -314,11 +337,13 @@ def chair():
 
 
 @app.route("/quickrefresh", methods=["GET", "POST"])
+@login_required
 def refresh():
     if request.method == "POST":
         return redirect("/c")
 
 @app.route("/raise", methods=["GET", "POST"])
+@login_required
 def raise_hand():
     if request.method == "GET":
         return render_template("raise.html")
@@ -328,7 +353,7 @@ def raise_hand():
         global number_track
         isit = False
         reason = request.form.get("raise_type")
-        before_country_raise = User.query.filter_by(id=session["user_id"]).first()
+        before_country_raise = User.query.filter_by(id=current_user.id).first()
         country_raise = before_country_raise.username
 
 
@@ -346,13 +371,16 @@ def raise_hand():
         return redirect("/")
 
 @app.route("/quickraise", methods=["GET", "POST"])
+@login_required
 def quick_raise():
-    if request.method == "POST":
+    if request.method == "GET":
+        return render_template("raise.html")
+    elif request.method == "POST":
         global type_hand
         global country_hand
         global number_track
         #sure = False
-        before_country_raise = User.query.filter_by(id=session["user_id"]).first()
+        before_country_raise = User.query.filter_by(id=current_user.id).first()
         current_count = before_country_raise.username
 
         for items in country_hand:
@@ -366,6 +394,7 @@ def quick_raise():
         return render_template("raise.html")
 
 @app.route("/alldown", methods=["GET", "POST"])
+@login_required
 def quick_close():
     if request.method == "POST":
         global type_hand
