@@ -83,7 +83,7 @@ type_hand = []
 x = False
 
 @app.route("/voting", methods=["GET", "POST"])
-#@login_required
+@login_required
 def voting():
 
     global counter
@@ -102,6 +102,7 @@ def voting():
         vote = request.form.get("vote")
 
         country = User.query.filter_by(username=current_user.username).first()
+        print(coutry)
 
         global countries
 
@@ -191,7 +192,7 @@ def voting():
         return redirect("/")
 
 @app.route("/", methods=["GET", "POST"])
-#@login_required
+@login_required
 def vot():
 
     global forr
@@ -269,11 +270,12 @@ def login():
         #y = check_password_hash(rows[0]["password"], request.form.get("password"))
         if (str(rows.password) == str(aa)):
             print("FOUND")
-            login_user(rows)
-            return redirect("/")
-            #if rows.username == "Chair":
-            #    redirect("/c")
-            #else:
+            login_user(rows, Remember = True)
+            if rows.username == "Chair":
+                return redirect("/c")
+            else:
+                return redirect("/")
+
 
         print("NOT FOUND")
         return render_template("login.html")
