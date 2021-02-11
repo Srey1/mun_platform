@@ -201,9 +201,6 @@ def vot():
     global type_hand
     global country_hand
     global number_track
-    before_country_raise = User.query.filter_by(id=current_user.id).first()
-    current_country = before_country_raise.username
-    print(current_country)
 
     if request.method == "GET":
         return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
