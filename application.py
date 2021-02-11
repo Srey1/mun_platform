@@ -183,10 +183,7 @@ def vot():
     current_country = before_country_raise.username
 
     if request.method == "GET":
-        if current_country == "Chair":
-            return render_template("chair.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
-        else:
-            return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+        return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
 
 
@@ -250,8 +247,10 @@ def login():
         #y = check_password_hash(rows[0]["password"], request.form.get("password"))
         if (rows.password == aa):
             session["user_id"] = rows.id
-
-            return redirect("/voting")
+            if rows.username == "Chair":
+                redirect("/c")
+            else:
+                return redirect("/")
         else:
             return render_template("login.html")
 
@@ -262,6 +261,19 @@ def login():
            # return apology("invalid", 403)
 
         # Remember which user has logged in
+
+
+
+@app.route("/c", methods=["GET", "POST"])
+def go():
+    global forr
+    global agains
+    global obstain
+    global type_hand
+    global country_hand
+    global number_track
+    return render_template("chair.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+
 
 
 @app.route("/chair", methods=["GET", "POST"])
@@ -287,13 +299,13 @@ def chair():
         forr = 0
         agains = 0
         obstain = 0
-        return redirect("/")
+        return redirect("/c")
 
 
 @app.route("/quickrefresh", methods=["GET", "POST"])
 def refresh():
     if request.method == "POST":
-        return redirect("/")
+        return redirect("/c")
 
 @app.route("/raise", methods=["GET", "POST"])
 def raise_hand():
@@ -351,4 +363,4 @@ def quick_close():
         number_track = 0
         country_hand = []
         type_hand = []
-        return redirect("/")
+        return redirect("/c")
