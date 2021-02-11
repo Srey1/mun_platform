@@ -203,11 +203,6 @@ def login():
     session.clear()
 
     if request.method == "GET":
-        return render_template("login.html")
-
-
-    # User reached route via POST (as by submitting a form via POST)
-    else:
         person0 = User('Afghanistan', generate_password_hash('33Afghanistan45'))
         db.session.add(person0)
         db.session.commit()
@@ -532,7 +527,7 @@ def login():
         person107 = User('DPRK', generate_password_hash('33DPRK45'))
         db.session.add(person107)
         db.session.commit()
-        person108 = User('South-Korea', generate_password_hash('33South-Korea45'))
+        person108 = User('South Korea', generate_password_hash('33South Korea45'))
         db.session.add(person108)
         db.session.commit()
         person109 = User('North-Korea', generate_password_hash('33North-Korea45'))
@@ -916,6 +911,12 @@ def login():
         person235 = User('Chair', generate_password_hash('chairMUN6'))
         db.session.add(person235)
         db.session.commit()
+        return render_template("login.html")
+
+
+    # User reached route via POST (as by submitting a form via POST)
+    else:
+
 
         #global country
         #country = request.form.get("username"):
