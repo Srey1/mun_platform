@@ -203,11 +203,8 @@ def login():
     session.clear()
 
     if request.method == "GET":
-        x = generate_password_hash("33Afghanistan45")
-        person0 = User(username = 'Afghanistan', password = x)
-        db.session.add(person0)
-        db.session.commit()
         
+
         return render_template("login.html")
 
 
