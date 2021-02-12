@@ -12,6 +12,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
+from datetime import timedelta
 # Configure application
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -22,6 +23,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+app.permanent_session_lifetime = timedelta(days=1)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -95,15 +98,13 @@ def voting():
 
 
     if request.method == "GET":
-        acountry = User.query.filter_by(username=current_user.username).first()
-        login_user(acountry, remember = True)
         return render_template("voting.html", counter = counter, counter1 = counter1, counter2 = counter2, options = options)
 
     else:
 
         vote = request.form.get("vote")
 
-        acountry = User.query.filter_by(username=current_user.username).first()
+        acountry = User.query.filter_by(username=session["user_id"]).first()
         country = acountry.username
 
 
@@ -209,10 +210,7 @@ def vot():
     global number_track
 
     if request.method == "GET":
-        country = User.query.filter_by(username=current_user.username).first()
-        login_user(country, remember = True)
-        acountry = country.username
-        print(acountry)
+        
         return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
 
@@ -280,7 +278,8 @@ def login():
         #y = check_password_hash(rows[0]["password"], request.form.get("password"))
         if (str(rows.password) == str(aa)):
             print("FOUND")
-            login_user(rows, remember = True)
+            session["user"] = rows.id
+            print(session["user_id"])
             if rows.username == "Chair":
                 return redirect("/c")
             else:
