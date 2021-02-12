@@ -364,9 +364,15 @@ def raise_hand():
     if request.method == "GET":
         return render_template("raise.html")
     elif request.method == "POST":
+        global forr
+        global agains
+        global obstain
         global type_hand
         global country_hand
         global number_track
+        global amt
+        global final_count
+        global final_vote
         isit = False
         reason = request.form.get("raise_type")
         tho_user = session["user_id"]
@@ -378,12 +384,21 @@ def raise_hand():
             x = country_hand.index(country_raise)
             country_hand.pop(x)
             type_hand.pop(x)
+            print(country_hand)
+            print(type_hand)
+            print(final_count)
+            print(final_vote)
             return redirect("/")
 
         if isit == False:
             country_hand.append(country_raise)
             type_hand.append(reason)
             number_track = len(country_hand)
+
+        print(country_hand)
+        print(type_hand)
+        print(final_count)
+        print(final_vote)
 
         return redirect("/")
 
