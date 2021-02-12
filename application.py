@@ -206,7 +206,7 @@ def voting():
 
         amt = len(final_vote)
 
-        return redirect("/")
+        return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -386,7 +386,7 @@ def raise_hand():
             print(type_hand)
             print(final_count)
             print(final_vote)
-            return redirect("/")
+            return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
 
         if isit == False:
@@ -399,7 +399,8 @@ def raise_hand():
         print(final_count)
         print(final_vote)
 
-        return redirect("/")
+        return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+
 
 @app.route("/quickraise", methods=["GET", "POST"])
 #@login_required
@@ -422,7 +423,8 @@ def quick_raise():
                 print(type_hand)
                 print(final_count)
                 print(final_vote)
-                return redirect("/")
+                return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+
 
         print(country_hand)
         print(type_hand)
