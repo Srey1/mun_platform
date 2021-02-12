@@ -199,7 +199,7 @@ def voting():
         return redirect("/")
 
 @app.route("/", methods=["GET", "POST"])
-#def vot():
+def vot():
 
     global forr
     global agains
