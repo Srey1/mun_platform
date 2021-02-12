@@ -103,7 +103,7 @@ def voting():
 
         acountry = User.query.filter_by(username=current_user.username).first()
         country = acountry.username
-        #login_user(country)
+        login_user(acountry, remember = True)
 
         print(country)
 
