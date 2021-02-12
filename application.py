@@ -366,11 +366,10 @@ def raise_hand():
 
 
         for items in country_hand:
-            if str(items) == str(country_raise):
-                x = country_hand.index(country_raise)
-                earlier_raise = type_hand[x]
-                type_hand[x] = reason
-                isit = True
+            x = country_hand.index(current_count)
+            country_hand.pop(x)
+            type_hand.pop(x)
+            return redirect("/")
 
         if isit == False:
             country_hand.append(country_raise)
