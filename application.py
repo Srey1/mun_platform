@@ -158,6 +158,13 @@ def voting():
             final_count.append(country)
             final_vote.append(vote)
 
+            if vote == "In Favor":
+                counter.append("a")
+            elif vote == "Abstention":
+                counter1.append("a")
+            elif vote == "Against":
+                counter2.append("a")
+
         print(countries)
         print(final_vote)
         print(final_count)
@@ -191,12 +198,7 @@ def voting():
             #amt = len(final_vote)
 
 
-            if vote == "In Favor":
-                counter.append("a")
-            elif vote == "Abstention":
-                counter1.append("a")
-            elif vote == "Against":
-                counter2.append("a")
+
 
         forr = len(counter)
         agains = len(counter2)
@@ -204,21 +206,11 @@ def voting():
 
         amt = len(final_vote)
 
-        return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+        return redirect("/")
 
 
 @app.route("/", methods=["GET", "POST"])
 def vot():
-
-    global forr
-    global agains
-    global obstain
-    global type_hand
-    global country_hand
-    global number_track
-    global amt
-    global final_count
-    global final_vote
     print(country_hand)
     print(type_hand)
     print(final_count)
@@ -394,7 +386,7 @@ def raise_hand():
             print(type_hand)
             print(final_count)
             print(final_vote)
-            return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+            return redirect("/")
 
 
         if isit == False:
@@ -407,8 +399,7 @@ def raise_hand():
         print(final_count)
         print(final_vote)
 
-        return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
-
+        return redirect("/")
 
 @app.route("/quickraise", methods=["GET", "POST"])
 #@login_required
@@ -431,8 +422,7 @@ def quick_raise():
                 print(type_hand)
                 print(final_count)
                 print(final_vote)
-                return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
-
+                return redirect("/")
 
         print(country_hand)
         print(type_hand)
