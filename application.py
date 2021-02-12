@@ -139,15 +139,26 @@ def voting():
         #print(country)
         #print("!!!!!")
 
-        for items in countries:
+        global amt
+        global forr
+        global agains
+        global obstain
+        global final_vote
+        global final_count
+
+        for items in final_count:
             if str(items) == str(country):
-                x = countries.index(country)
+                x = final_count.index(country)
                 earlier_vote = final_vote[x]
                 final_vote[x] = vote
                 inside = True
 
         if inside == False:
             countries.append(country)
+            final_count.append(country)
+            final_vote.append(country)
+
+        print(countries)
 
         if inside == True:
             if earlier_vote == "In Favor":
@@ -166,22 +177,14 @@ def voting():
 
 
 
-        if inside == False:
-            final_count.append(country)
-            final_vote.append(vote)
+
 
             #print(countries)
 
                 #for items in countries.values():
                  #   final_vote.append(items)s
 
-            global amt
-            global forr
-            global agains
-            global obstain
-            global type_hand
-            global country_hand
-            global number_track
+
 
             #amt = len(final_vote)
 
@@ -419,9 +422,16 @@ def quick_raise():
                 x = country_hand.index(current_count)
                 country_hand.pop(x)
                 type_hand.pop(x)
+                print(country_hand)
+                print(type_hand)
+                print(final_count)
+                print(final_vote)
                 return redirect("/")
 
-
+        print(country_hand)
+        print(type_hand)
+        print(final_count)
+        print(final_vote)
         return render_template("raise.html")
 
 @app.route("/alldown", methods=["GET", "POST"])
