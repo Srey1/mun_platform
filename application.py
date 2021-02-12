@@ -183,7 +183,7 @@ def voting():
             global country_hand
             global number_track
 
-            amt = len(final_vote)
+            #amt = len(final_vote)
 
 
             if vote == "In Favor":
@@ -197,6 +197,8 @@ def voting():
         agains = len(counter2)
         obstain = len(counter1)
 
+        amt = len(final_vote)
+
         return redirect("/")
 
 @app.route("/", methods=["GET", "POST"])
@@ -208,6 +210,13 @@ def vot():
     global type_hand
     global country_hand
     global number_track
+    global amt
+    global final_count
+    global final_vote
+    print(country_hand)
+    print(type_hand)
+    print(final_count)
+    print(final_vote)
 
     return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
@@ -375,6 +384,7 @@ def raise_hand():
             country_hand.append(country_raise)
             type_hand.append(reason)
             number_track = len(country_hand)
+
         return redirect("/")
 
 @app.route("/quickraise", methods=["GET", "POST"])
