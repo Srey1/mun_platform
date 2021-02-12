@@ -209,9 +209,7 @@ def vot():
     global country_hand
     global number_track
 
-    if request.method == "GET":
-
-        return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+    return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
 
 
@@ -304,14 +302,17 @@ def login():
 
 @app.route("/c", methods=["GET", "POST"])
 #@login_required
-def go():
+def ccc():
     global forr
     global agains
     global obstain
     global type_hand
     global country_hand
     global number_track
+
+
     return render_template("chair.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+
 
 
 
@@ -397,7 +398,7 @@ def quick_raise():
                 return redirect("/")
 
 
-        return redirect("raise")
+        return render_template("raise.html")
 
 @app.route("/alldown", methods=["GET", "POST"])
 #@login_required
