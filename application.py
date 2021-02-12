@@ -277,7 +277,7 @@ def login():
         #y = check_password_hash(rows[0]["password"], request.form.get("password"))
         if (str(rows.password) == str(aa)):
             print("FOUND")
-            session["user"] = rows.id
+            session["user_id"] = rows.id
             print(session["user_id"])
             if rows.username == "Chair":
                 return redirect("/c")
