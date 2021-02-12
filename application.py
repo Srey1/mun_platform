@@ -374,7 +374,7 @@ def raise_hand():
         if isit == False:
             country_hand.append(country_raise)
             type_hand.append(reason)
-        number_track = len(country_hand)
+            number_track = len(country_hand)
         return redirect("/")
 
 @app.route("/quickraise", methods=["GET", "POST"])
