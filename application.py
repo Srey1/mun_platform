@@ -359,7 +359,8 @@ def raise_hand():
         global number_track
         isit = False
         reason = request.form.get("raise_type")
-        before_country_raise = User.query.filter_by(id=current_user.id).first()
+        tho_user = session["user_id"]
+        before_country_raise = User.query.filter_by(id=tho_user).first()
         country_raise = before_country_raise.username
 
 
@@ -379,14 +380,13 @@ def raise_hand():
 @app.route("/quickraise", methods=["GET", "POST"])
 #@login_required
 def quick_raise():
-    if request.method == "GET":
-        return render_template("raise.html")
-    elif request.method == "POST":
+    if request.method == "POST":
         global type_hand
         global country_hand
         global number_track
         #sure = False
-        before_country_raise = User.query.filter_by(id=current_user.id).first()
+        the_user = session["user_id"]
+        before_country_raise = User.query.filter_by(id=the_user).first()
         current_count = before_country_raise.username
 
         for items in country_hand:
@@ -397,7 +397,7 @@ def quick_raise():
                 return redirect("/")
 
 
-        return render_template("raise.html")
+        return redirect("raise")
 
 @app.route("/alldown", methods=["GET", "POST"])
 #@login_required
