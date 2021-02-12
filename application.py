@@ -159,6 +159,8 @@ def voting():
             final_vote.append(country)
 
         print(countries)
+        print(final_vote)
+        print(final_count)
 
         if inside == True:
             if earlier_vote == "In Favor":
