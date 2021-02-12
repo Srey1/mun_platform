@@ -95,6 +95,8 @@ def voting():
 
 
     if request.method == "GET":
+        acountry = User.query.filter_by(username=current_user.username).first()
+        login_user(acountry, remember = True)
         return render_template("voting.html", counter = counter, counter1 = counter1, counter2 = counter2, options = options)
 
     else:
@@ -103,9 +105,10 @@ def voting():
 
         acountry = User.query.filter_by(username=current_user.username).first()
         country = acountry.username
-        login_user(acountry, remember = True)
+
 
         print(country)
+        print(acountry)
 
         global countries
 
