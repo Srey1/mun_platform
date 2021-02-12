@@ -361,7 +361,7 @@ def raise_hand():
 
 
         for items in country_hand:
-            if str(items) == str(current_count):
+            if str(items) == str(country_raise):
                 x = country_hand.index(country_raise)
                 country_hand.pop(x)
                 type_hand.pop(x)
