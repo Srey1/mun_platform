@@ -15,8 +15,8 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from datetime import timedelta
 # Configure application
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
-
+#app.secret_key = os.urandom(24)
+app.config['SECRET_KEY'] = "This_is_the_seeeecccccreeet_thingzmagingz"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
@@ -31,21 +31,21 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(80))
 
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
-
-    def is_authenticated(self):
-        return True
-
-    def is_active(self):
-        return True
-
-    def is_anonymous(self):
-        return False
-
-    def get_id(self):
-        return self.id
+    #def __init__(self, username, password):
+    #    self.username = username
+    #    self.password = password
+#
+    #def is_authenticated(self):
+    #    return True
+#
+    #def is_active(self):
+    #    return True
+#
+    #def is_anonymous(self):
+    #    return False
+#
+    #def get_id(self):
+    #    return self.id
 
 # Ensure responses aren't cached
 @app.after_request
@@ -57,9 +57,9 @@ def after_request(response):
 
 #FOR VOTE HTML
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(user_id)
+#@login_manager.user_loader
+#def load_user(user_id):
+    #return User.query.get(user_id)
 
 
 amt = 0
@@ -104,7 +104,9 @@ def voting():
 
         vote = request.form.get("vote")
 
-        acountry = User.query.filter_by(username=session["user_id"]).first()
+        the_current_user = session["user_id"]
+
+        acountry = User.query.filter_by(username=the_current_user).first()
         country = acountry.username
 
 
