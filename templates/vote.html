@@ -184,10 +184,10 @@ tr:nth-of-type(odd) {
               <th class = "table_style">Country</th>
               <th class = "table_style">Vote</th>
           </tr>
-          {% for row in range(0, amt) %}
+          {% for a in range(0, amt) %}
               <tr>
-                  <td class = "table_style">{{ final_count[row] }}</td>
-                  <td class = "table_style">{{ final_vote[row] }}</td>
+                  <td class = "table_style">{{ final_count[a] }}</td>
+                  <td class = "table_style">{{ final_vote[a] }}</td>
               </tr>
            {% endfor %}
 
