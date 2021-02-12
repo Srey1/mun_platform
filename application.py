@@ -30,21 +30,7 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(80))
 
-    #def __init__(self, username, password):
-    #    self.username = username
-    #    self.password = password
-#
-    #def is_authenticated(self):
-    #    return True
-#
-    #def is_active(self):
-    #    return True
-#
-    #def is_anonymous(self):
-    #    return False
-#
-    #def get_id(self):
-    #    return self.id
+
 
 # Ensure responses aren't cached
 @app.after_request
@@ -54,11 +40,7 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-#FOR VOTE HTML
 
-#@login_manager.user_loader
-#def load_user(user_id):
-    #return User.query.get(user_id)
 
 
 amt = 0
@@ -379,14 +361,15 @@ def raise_hand():
 
 
         for items in country_hand:
-            x = country_hand.index(country_raise)
-            country_hand.pop(x)
-            type_hand.pop(x)
-            print(country_hand)
-            print(type_hand)
-            print(final_count)
-            print(final_vote)
-            return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+            if str(items) == str(current_count):
+                x = country_hand.index(country_raise)
+                country_hand.pop(x)
+                type_hand.pop(x)
+                print(country_hand)
+                print(type_hand)
+                print(final_count)
+                print(final_vote)
+                return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
 
         if isit == False:
