@@ -366,7 +366,7 @@ def raise_hand():
 
 
         for items in country_hand:
-            x = country_hand.index(current_count)
+            x = country_hand.index(country_raise)
             country_hand.pop(x)
             type_hand.pop(x)
             return redirect("/")
