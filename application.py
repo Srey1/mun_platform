@@ -105,7 +105,7 @@ def voting():
 
         the_current_user = session["user_id"]
 
-        acountry = User.query.filter_by(username=the_current_user).first()
+        acountry = User.query.filter_by(id=the_current_user).first()
         country = acountry.username
 
 
