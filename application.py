@@ -126,7 +126,6 @@ def voting():
                 r = countries.index(country)
                 earlier_vote = final_vote[r]
                 final_vote[r] = s
-                extra_vote[r] = s
                 if earlier_vote == "In Favor":
                     counter.pop()
                 elif earlier_vote == "Abstention":
@@ -147,8 +146,6 @@ def voting():
 
         if inside == False:
             final_count.append(country)
-            extra_count.append(country)
-            extra_vote.append(s)
             final_vote.append(vote)
             countries.append(country)
             if s == "In Favor":
@@ -172,6 +169,12 @@ def voting():
 
 
         amt = len(final_vote)
+
+        extra_count.append(country)
+        extra_vote.append(s)
+
+        print(f"THE {extra_count}")
+        print(f"THE {extra_vote}")
 
 
 
