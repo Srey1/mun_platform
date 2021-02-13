@@ -10,20 +10,26 @@ from werkzeug.security import check_password_hash, generate_password_hash
 #from functions import login_required
 from flask_sqlalchemy import SQLAlchemy
 
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+#from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 from datetime import timedelta
 # Configure application
 app = Flask(__name__)
 #app.secret_key = os.urandom(24)
 app.config['SECRET_KEY'] = "This_is_the_seeeecccccreeet_thingzmagingz"
+# Ensure templates are auto-reloaded
+app.config["TEMPLATES_AUTO_RELOAD"] = True
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
 #login_manager.init_app(app)
 
+
+
 app.permanent_session_lifetime = timedelta(days=1)
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -42,6 +48,10 @@ def after_request(response):
 
 
 
+
+the_user = session["user_id"]
+before_country_raise = User.query.filter_by(id=the_user).first()
+current_count = before_country_raise.username
 
 amt = 0
 
@@ -64,28 +74,14 @@ number_hand = []
 country_hand = []
 type_hand = []
 
-#x = False
-
-
-
 @app.route("/voting", methods=["GET", "POST"])
 #@login_required
+
 def voting():
 
-    global amt
-    global forr
-    global agains
-    global obstain
     global counter
     global counter1
     global counter2
-    global final_count
-    global final_vote
-    global countries
-    global number_track
-    global number_hand
-    global country_hand
-    global type_hand
 
 
     options = ["In Favor", "Abstention", "Against"]
@@ -98,16 +94,12 @@ def voting():
 
         vote = request.form.get("vote")
 
-        the_current_user = session["user_id"]
+        the_user = session["user_id"]
 
-        acountry = User.query.filter_by(id=the_current_user).first()
-        country = acountry.username
+        crow = User.query.filter_by(id=the_user).first()
+        country = crow.username
 
-
-        print(country)
-        print(acountry)
-
-
+        global countries
 
         #countries[country] = vote
 
@@ -134,29 +126,15 @@ def voting():
         #print(country)
         #print("!!!!!")
 
-
-        for items in final_count:
+        for items in countries:
             if str(items) == str(country):
-                y = final_count.index(country)
-                earlier_vote = final_vote[y]
-                final_vote[y] = vote
+                x = countries.index(country)
+                earlier_vote = final_vote[x]
+                final_vote[x] = vote
                 inside = True
 
         if inside == False:
             countries.append(country)
-            final_count.append(country)
-            final_vote.append(vote)
-
-            if vote == "In Favor":
-                counter.append("a")
-            elif vote == "Abstention":
-                counter1.append("a")
-            elif vote == "Against":
-                counter2.append("a")
-
-        print(countries)
-        print(final_vote)
-        print(final_count)
 
         if inside == True:
             if earlier_vote == "In Favor":
@@ -175,54 +153,64 @@ def voting():
 
 
 
-
+        if inside == False:
+            final_count.append(country)
+            final_vote.append(vote)
 
             #print(countries)
 
                 #for items in countries.values():
                  #   final_vote.append(items)s
 
+            global amt
+            global forr
+            global agains
+            global obstain
+            global type_hand
+            global country_hand
+            global number_track
+
+            amt = len(final_vote)
 
 
-            #amt = len(final_vote)
-
-
-
+            if vote == "In Favor":
+                counter.append("a")
+            elif vote == "Abstention":
+                counter1.append("a")
+            elif vote == "Against":
+                counter2.append("a")
 
         forr = len(counter)
         agains = len(counter2)
         obstain = len(counter1)
 
-        amt = len(final_vote)
-
-        return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
-
-
+        return redirect("/")
 @app.route("/", methods=["GET", "POST"])
+#@login_required
 def vot():
 
+    global forr
+    global agains
+    global obstain
+    global type_hand
+    global country_hand
+    global number_track
 
-    if request.method == "GET":
-        global amt
-        global forr
-        global agains
-        global obstain
-        global counter
-        global counter1
-        global counter2
-        global final_count
-        global final_vote
-        global countries
-        global number_track
-        global number_hand
-        global country_hand
-        global type_hand
-        print(country_hand)
-        print(type_hand)
-        print(final_count)
-        print(final_vote)
-        return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
+    return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+
+@app.route("/c", methods=["GET", "POST"])
+#@login_required
+def ccc():
+    global forr
+    global agains
+    global obstain
+    global type_hand
+    global country_hand
+    global number_track
+
+
+    return render_template("chair.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
 
 
@@ -312,187 +300,62 @@ def login():
 
 
 
-@app.route("/c", methods=["GET", "POST"])
-#@login_required
-def ccc():
-    global amt
-    global forr
-    global agains
-    global counter
-    global counter1
-    global counter2
-    global final_count
-    global final_vote
-    global countries
-    global number_track
-    global number_hand
-    global country_hand
-    global type_hand
-
-
-    return redirect("/")
-
-
-
-@app.route("/chair", methods=["GET", "POST"])
-#@login_required
-def chair():
-    if request.method == "POST":
-        global amt
-        global forr
-        global agains
-        global counter
-        global counter1
-        global counter2
-        global final_count
-        global final_vote
-        global countries
-        global number_track
-        global number_hand
-        global country_hand
-        global type_hand
-        counter = []
-        counter1 = []
-        counter2 = []
-        final_count = []
-        final_vote = []
-        countries = []
-        amt = 0
-        forr = 0
-        agains = 0
-        obstain = 0
-        return redirect("/c")
-
-
 @app.route("/quickrefresh", methods=["GET", "POST"])
-#@login_required
 def refresh():
-    global amt
-    global forr
-    global agains
-    global counter
-    global counter1
-    global counter2
-    global final_count
-    global final_vote
-    global countries
-    global number_track
-    global number_hand
-    global country_hand
-    global type_hand
     if request.method == "POST":
         return redirect("/c")
 
 @app.route("/raise", methods=["GET", "POST"])
-#@login_required
 def raise_hand():
-    global amt
-    global forr
-    global agains
-    global counter
-    global counter1
-    global counter2
-    global final_count
-    global final_vote
-    global countries
-    global number_track
-    global number_hand
-    global country_hand
-    global type_hand
     if request.method == "GET":
         return render_template("raise.html")
     elif request.method == "POST":
+        global type_hand
+        global country_hand
+        global number_track
         isit = False
         reason = request.form.get("raise_type")
-        tho_user = session["user_id"]
-        before_country_raise = User.query.filter_by(id=tho_user).first()
+        ther_current_user = session["user_id"]
+        before_country_raise = User.query.filter_by(id=ther_current_user).first()
         country_raise = before_country_raise.username
 
 
         for items in country_hand:
             if str(items) == str(country_raise):
-                print("TRY 2 REPLICA FOUND")
-                h = country_hand.index(country_raise)
-                country_hand.pop(h)
-                type_hand.pop(h)
-                print(country_hand)
-                print(type_hand)
-                print(final_count)
-                print(final_vote)
-                return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
-
+                x = country_hand.index(country_raise)
+                earlier_raise = type_hand[x]
+                type_hand[x] = reason
+                isit = True
 
         if isit == False:
             country_hand.append(country_raise)
             type_hand.append(reason)
-            number_track = len(country_hand)
-
-        print(country_hand)
-        print(type_hand)
-        print(final_count)
-        print(final_vote)
-
-        return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
-
+        number_track = len(country_hand)
+        return redirect("/")
 
 @app.route("/quickraise", methods=["GET", "POST"])
-#@login_required
 def quick_raise():
-    global amt
-    global forr
-    global agains
-    global counter
-    global counter1
-    global counter2
-    global final_count
-    global final_vote
-    global countries
-    global number_track
-    global number_hand
-    global country_hand
-    global type_hand
     if request.method == "POST":
+        global type_hand
+        global country_hand
+        global number_track
         #sure = False
-        the_user = session["user_id"]
-        before_country_raise = User.query.filter_by(id=the_user).first()
-        current_count = before_country_raise.username
+        the_current_user = session["user_id"]
+        before_country_raise = User.query.filter_by(id=the_current_user).first()
+        country_count = before_country_raise.username
 
         for items in country_hand:
             if str(items) == str(current_count):
-                r = country_hand.index(current_count)
-                country_hand.pop(r)
-                type_hand.pop(r)
-                print("REPLICA FOUND")
-                print(country_hand)
-                print(type_hand)
-                print(final_count)
-                print(final_vote)
-                return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+                x = country_hand.index(current_count)
+                country_hand.pop(x)
+                type_hand.pop(x)
+                return redirect("/")
 
 
-        print("REPLICA NOT FOUND")
-        print(country_hand)
-        print(type_hand)
-        print(final_count)
-        print(final_vote)
         return render_template("raise.html")
 
 @app.route("/alldown", methods=["GET", "POST"])
-#@login_required
 def quick_close():
-    global amt
-    global forr
-    global agains
-    global counter
-    global counter1
-    global counter2
-    global final_count
-    global final_vote
-    global countries
-    global number_track
-    global number_hand
-    global country_hand
-    global type_hand
     if request.method == "POST":
         global type_hand
         global country_hand
