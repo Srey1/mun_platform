@@ -416,6 +416,7 @@ def quick_raise():
                 x = country_hand.index(current_count)
                 country_hand.pop(x)
                 type_hand.pop(x)
+                print("POPPING PHASE ACTIVATED")
                 print(f"Done hand {country_hand}")
                 print(f"Done hand {type_hand}")
                 print(f"Done hand {final_count}")
