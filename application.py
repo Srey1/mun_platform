@@ -148,6 +148,7 @@ def voting():
         if inside == False:
             final_count.append(country)
             extra_count.append(country)
+            extra_vote.append(s)
             final_vote.append(vote)
             countries.append(country)
             if s == "In Favor":
