@@ -35,28 +35,30 @@ select {
 }
 </style>
 <body>
+  <ul>
+    <li class="nav-item"><a class="nav-link" href="/voting">Vote</a></li>
+    <li class="nav-item"><a class="nav-link" href="/">Results</a></li>
 
-<ul>
-  <li class="nav-item"><a class="nav-link" href="/voting">Vote</a></li>
-  <li class="nav-item"><a class="nav-link" href="/">Results</a></li>
+  </ul>
+  <form action="/the_finish" method="post">
+    <label for="sym">Please Select the Type</label>
+    <br>
+    <select  name = "raise_type">
+      <option>Point of Information(POI)</option>
+      <option>Speech</option>
+      <option>Amendment</option>
+      <option>Amendment to the Second Degree</option>
+     </select>
+     <br>
 
-</ul>
-        <form action="/the_finish" method="post">
+  <input type="submit" value="Vote">
 
 
-        <label for="sym">Please Select the Type</label>
-        <br>
-        <select  name = "raise_type">
-            <option>Point of Information(POI)</option>
-            <option>Speech</option>
-            <option>Amendment</option>
-            <option>Amendment to the Second Degree</option>
 
-         </select>
-         <br>
+</form>
 
-      <input type="submit" value="Vote">
-    </form>
+
+
 
     </body>
 </html>

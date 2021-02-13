@@ -418,8 +418,8 @@ def lets_hope():
 @app.route("/the_finish", methods=["GET", "POST"])
 def final_hope():
     if request.method == "POST":
-        country_hand.append("bye")
-        type_hand.append("please")
+        #country_hand.append("bye")
+        #type_hand.append("please")
         print(f"After Transfer {country_hand}")
         print(f"After Transfer {type_hand}")
         print(f"After Transfer {final_count}")
