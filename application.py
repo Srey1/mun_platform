@@ -103,33 +103,10 @@ def voting():
         acountry = User.query.filter_by(id=the_current_user).first()
         country = acountry.username
 
-
-        global countries
-        global amt
-        global forr
-        global agains
-        global obstain
-        global number_track
-
         #countries[country] = vote
 
         inside = False
 
-        """
-
-        for items in countries:
-            for things in final_count:
-                if things == items:
-                    inside = True
-                    break
-            else:
-                inside = False
-                final_count.append(items)
-
-        if inside == False:
-            for items in countries.values():
-                final_vote.append(items)
-        """
 
         #print(countries)
         #print("!!!!!")
@@ -138,34 +115,36 @@ def voting():
 
         for items in countries:
             if str(items) == str(country):
+                print("CHANGING")
                 x = countries.index(country)
                 earlier_vote = final_vote[x]
                 final_vote[x] = vote
-                inside = True
-
-        if inside == False:
+                if earlier_vote == "In Favor":
+                    counter.pop()
+                elif earlier_vote == "Abstention":
+                    counter1.pop()
+                elif earlier_vote == "Against":
+                    counter2.pop()
+                if vote == "In Favor":
+                    counter.append("a")
+                elif vote == "Abstention":
+                    counter1.append("a")
+                elif vote == "Against":
+                    counter2.append("a")
+                print(f"After hand {country_hand}")
+                print(f"After hand {type_hand}")
+                print(f"After hand {final_count}")
+                print(f"After hand {final_vote}")
+        else:
+            final_count.append(country)
+            final_vote.append(vote)
             countries.append(country)
-
-        if inside == True:
-            if earlier_vote == "In Favor":
-                counter.pop()
-            elif earlier_vote == "Abstention":
-                counter1.pop()
-            elif earlier_vote == "Against":
-                counter2.pop()
             if vote == "In Favor":
                 counter.append("a")
             elif vote == "Abstention":
                 counter1.append("a")
             elif vote == "Against":
                 counter2.append("a")
-
-
-
-
-        if inside == False:
-            final_count.append(country)
-            final_vote.append(vote)
             print(f"After hand {country_hand}")
             print(f"After hand {type_hand}")
             print(f"After hand {final_count}")
@@ -180,15 +159,10 @@ def voting():
 
 
 
-            amt = len(final_vote)
+        amt = len(final_vote)
 
 
-            if vote == "In Favor":
-                counter.append("a")
-            elif vote == "Abstention":
-                counter1.append("a")
-            elif vote == "Against":
-                counter2.append("a")
+
 
         forr = len(counter)
         agains = len(counter2)
@@ -352,12 +326,23 @@ def refresh():
 @app.route("/raise", methods=["GET", "POST"])
 #@login_required
 def raise_hand():
+    global amt
+    global forr
+    global agains
+    global obstain
+    global counter
+    global counter1
+    global counter2
+    global final_count
+    global final_vote
+    global countries
+    global number_track
+    global number_hand
+    global country_hand
+    global type_hand
     if request.method == "GET":
         return render_template("raise.html")
     elif request.method == "POST":
-        global type_hand
-        global country_hand
-        global number_track
         isit = False
         reason = request.form.get("raise_type")
         curent_user = session["user_id"]
@@ -398,6 +383,20 @@ def raise_hand():
 @app.route("/quickraise", methods=["GET", "POST"])
 #@login_required
 def quick_raise():
+    global amt
+    global forr
+    global agains
+    global obstain
+    global counter
+    global counter1
+    global counter2
+    global final_count
+    global final_vote
+    global countries
+    global number_track
+    global number_hand
+    global country_hand
+    global type_hand
     if request.method == "POST":
         print(f"Done hand {country_hand}")
         print(f"Done hand {type_hand}")
