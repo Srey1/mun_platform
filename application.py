@@ -115,12 +115,14 @@ def voting():
         #print(country)
         #print("!!!!!")
 
+        print("ENTERING VOTE")
+
         for items in countries:
             if str(items) == str(country):
                 print("CHANGING")
-                x = countries.index(country)
-                earlier_vote = final_vote[x]
-                final_vote[x] = s
+                r = countries.index(country)
+                earlier_vote = final_vote[r]
+                final_vote[r] = s
                 if earlier_vote == "In Favor":
                     counter.pop()
                 elif earlier_vote == "Abstention":
@@ -134,10 +136,11 @@ def voting():
                 elif s == "Against":
                     counter2.append("a")
                 inside = True
-                print(f"After hand {country_hand}")
-                print(f"After hand {type_hand}")
-                print(f"After hand {final_count}")
-                print(f"After hand {final_vote}")
+                print(f"After changing vote {country_hand}")
+                print(f"After changing vote {type_hand}")
+                print(f"After changing vote {final_count}")
+                print(f"After changing vote {final_vote}")
+
         if inside == False:
             final_count.append(country)
             final_vote.append(vote)
@@ -148,10 +151,10 @@ def voting():
                 counter1.append("a")
             elif s == "Against":
                 counter2.append("a")
-            print(f"After hand {country_hand}")
-            print(f"After hand {type_hand}")
-            print(f"After hand {final_count}")
-            print(f"After hand {final_vote}")
+            print(f"After adding vote {country_hand}")
+            print(f"After adding vote {type_hand}")
+            print(f"After adding vote {final_count}")
+            print(f"After adding vote {final_vote}")
 
             #print(countries)
 
@@ -329,23 +332,12 @@ def refresh():
 @app.route("/raise", methods=["GET", "POST"])
 #@login_required
 def raise_hand():
-    global amt
-    global forr
-    global agains
-    global obstain
-    global counter
-    global counter1
-    global counter2
-    global final_count
-    global final_vote
-    global countries
-    global number_track
-    global number_hand
-    global country_hand
-    global type_hand
     if request.method == "GET":
         return render_template("raise.html")
     elif request.method == "POST":
+        global type_hand
+        global country_hand
+        global number_track
         isit = False
         reason = request.form.get("raise_type")
         curent_user = session["user_id"]
@@ -359,9 +351,8 @@ def raise_hand():
 
         for items in country_hand:
             if str(items) == str(country_raise):
-                x = country_hand.index(country_raise)
-                earlier_raise = type_hand[x]
-                type_hand[x] = reason
+                l = country_hand.index(country_raise)
+                type_hand[l] = reason
                 isit = True
                 print(f"No hand {country_hand}")
                 print(f"No hand {type_hand}")
@@ -371,10 +362,10 @@ def raise_hand():
         if isit == False:
             country_hand.append(country_raise)
             type_hand.append(reason)
-            print(f"After hand {country_hand}")
-            print(f"After hand {type_hand}")
-            print(f"After hand {final_count}")
-            print(f"After hand {final_vote}")
+            print(f"After raise {country_hand}")
+            print(f"After raise {type_hand}")
+            print(f"After raise {final_count}")
+            print(f"After raise {final_vote}")
         number_track = len(country_hand)
         return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
