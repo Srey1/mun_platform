@@ -194,7 +194,8 @@ def voting():
         agains = len(counter2)
         obstain = len(counter1)
 
-        return redirect("/")
+        return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -293,7 +294,8 @@ def login():
             if rows.username == "Chair":
                 return redirect("/c")
             else:
-                return redirect("/")
+                return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+
 
 
         print("NOT FOUND")
@@ -386,7 +388,8 @@ def raise_hand():
             print(f"After hand {final_count}")
             print(f"After hand {final_vote}")
         number_track = len(country_hand)
-        return redirect("/")
+        return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+
 
 
 
@@ -410,7 +413,8 @@ def quick_raise():
                 x = country_hand.index(current_count)
                 country_hand.pop(x)
                 type_hand.pop(x)
-                return redirect("/")
+                return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+
 
 
         return render_template("raise.html")
