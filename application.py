@@ -203,14 +203,6 @@ def vot():
 
 
 
-    global forr
-    global agains
-    global obstain
-    global type_hand
-    global country_hand
-    global number_track
-    global final_vote
-    global final_count
 
     print(f"Current hand {country_hand}")
     print(f"Current hand {type_hand}")
