@@ -207,7 +207,7 @@ def vot():
     return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
 @app.route("/c", methods=["GET", "POST"])
-#def ccc():
+def ccc():
     global forr
     global agains
     global obstain
