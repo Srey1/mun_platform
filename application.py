@@ -64,6 +64,9 @@ number_hand = []
 country_hand = []
 type_hand = []
 
+extra_count = []
+extra_vote = []
+
 #x = False
 
 
@@ -123,6 +126,7 @@ def voting():
                 r = countries.index(country)
                 earlier_vote = final_vote[r]
                 final_vote[r] = s
+                extra_vote[r] = s
                 if earlier_vote == "In Favor":
                     counter.pop()
                 elif earlier_vote == "Abstention":
@@ -143,6 +147,7 @@ def voting():
 
         if inside == False:
             final_count.append(country)
+            extra_count.append(country)
             final_vote.append(vote)
             countries.append(country)
             if s == "In Favor":
@@ -416,6 +421,8 @@ def lets_hope():
         print(f"Before Transfer {type_hand}")
         print(f"Before Transfer {final_count}")
         print(f"Before Transfer {final_vote}")
+        print(f"Extra: {extra_count}")
+        print(f"Extra: {extra_vote}")
         return render_template("raise.html")
 
 
@@ -428,6 +435,8 @@ def final_hope():
         print(f"After Transfer {type_hand}")
         print(f"After Transfer {final_count}")
         print(f"After Transfer {final_vote}")
+        print(f"Extra: {extra_count}")
+        print(f"Extra: {extra_vote}")
         return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
 
