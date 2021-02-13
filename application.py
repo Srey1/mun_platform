@@ -175,9 +175,11 @@ def voting():
             global forr
             global agains
             global obstain
-            global type_hand
             global country_hand
             global number_track
+            global type_hand
+
+
 
             amt = len(final_vote)
 
