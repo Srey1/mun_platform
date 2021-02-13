@@ -376,22 +376,7 @@ def raise_hand():
 
 
 @app.route("/quickraise", methods=["GET", "POST"])
-#@login_required
 def quick_raise():
-    global amt
-    global forr
-    global agains
-    global obstain
-    global counter
-    global counter1
-    global counter2
-    global final_count
-    global final_vote
-    global countries
-    global number_track
-    global number_hand
-    global country_hand
-    global type_hand
     if request.method == "POST":
         return render_template("raise.html")
         print(f"Done hand {country_hand}")
