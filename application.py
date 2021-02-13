@@ -338,6 +338,7 @@ def raise_hand():
         global type_hand
         global country_hand
         global number_track
+        global final_count
         isit = False
         reason = request.form.get("raise_type")
         curent_user = session["user_id"]
