@@ -399,9 +399,10 @@ def raise_hand():
 #@login_required
 def quick_raise():
     if request.method == "POST":
-        global type_hand
-        global country_hand
-        global number_track
+        print(f"Done hand {country_hand}")
+        print(f"Done hand {type_hand}")
+        print(f"Done hand {final_count}")
+        print(f"Done hand {final_vote}")
         #sure = False
         #sure = False
         the_user = session["user_id"]
@@ -413,6 +414,10 @@ def quick_raise():
                 x = country_hand.index(current_count)
                 country_hand.pop(x)
                 type_hand.pop(x)
+                print(f"Done hand {country_hand}")
+                print(f"Done hand {type_hand}")
+                print(f"Done hand {final_count}")
+                print(f"Done hand {final_vote}")
                 return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
 
