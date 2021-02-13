@@ -138,7 +138,7 @@ def voting():
                 print(f"After hand {type_hand}")
                 print(f"After hand {final_count}")
                 print(f"After hand {final_vote}")
-        if inside = False:
+        if inside == False:
             final_count.append(country)
             final_vote.append(vote)
             countries.append(country)
