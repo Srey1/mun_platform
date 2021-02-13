@@ -136,9 +136,9 @@ def voting():
 
         for items in final_count:
             if str(items) == str(country):
-                x = final_count.index(country)
-                earlier_vote = final_vote[x]
-                final_vote[x] = vote
+                y = final_count.index(country)
+                earlier_vote = final_vote[y]
+                final_vote[y] = vote
                 inside = True
 
         if inside == False:
@@ -406,9 +406,9 @@ def raise_hand():
 
         for items in country_hand:
             if str(items) == str(country_raise):
-                x = country_hand.index(country_raise)
-                country_hand.pop(x)
-                type_hand.pop(x)
+                h = country_hand.index(country_raise)
+                country_hand.pop(h)
+                type_hand.pop(h)
                 print(country_hand)
                 print(type_hand)
                 print(final_count)
@@ -451,9 +451,9 @@ def quick_raise():
 
         for items in country_hand:
             if str(items) == str(current_count):
-                x = country_hand.index(current_count)
-                country_hand.pop(x)
-                type_hand.pop(x)
+                r = country_hand.index(current_count)
+                country_hand.pop(r)
+                type_hand.pop(r)
                 print("REPLICA FOUND")
                 print(country_hand)
                 print(type_hand)
