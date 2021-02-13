@@ -75,6 +75,7 @@ def voting():
     global amt
     global forr
     global agains
+    global obstain
     global counter
     global counter1
     global counter2
@@ -198,25 +199,28 @@ def voting():
 
 @app.route("/", methods=["GET", "POST"])
 def vot():
-    global amt
-    global forr
-    global agains
-    global counter
-    global counter1
-    global counter2
-    global final_count
-    global final_vote
-    global countries
-    global number_track
-    global number_hand
-    global country_hand
-    global type_hand
-    print(country_hand)
-    print(type_hand)
-    print(final_count)
-    print(final_vote)
 
-    return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+
+    if request.method == "GET":
+        global amt
+        global forr
+        global agains
+        global obstain
+        global counter
+        global counter1
+        global counter2
+        global final_count
+        global final_vote
+        global countries
+        global number_track
+        global number_hand
+        global country_hand
+        global type_hand
+        print(country_hand)
+        print(type_hand)
+        print(final_count)
+        print(final_vote)
+        return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
 
 
@@ -406,6 +410,7 @@ def raise_hand():
 
         for items in country_hand:
             if str(items) == str(country_raise):
+                print("TRY 2 REPLICA FOUND")
                 h = country_hand.index(country_raise)
                 country_hand.pop(h)
                 type_hand.pop(h)
