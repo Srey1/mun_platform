@@ -401,6 +401,7 @@ def quick_raise():
     global country_hand
     global type_hand
     if request.method == "POST":
+        return render_template("raise.html")
         print(f"Done hand {country_hand}")
         print(f"Done hand {type_hand}")
         print(f"Done hand {final_count}")
