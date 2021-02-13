@@ -414,7 +414,7 @@ def quick_raise():
         for items in country_hand:
             if str(items) == str(current_count):
                 x = country_hand.index(current_count)
-                country_hand.pop(x)
+                country_hand.remove(current_count)
                 type_hand.pop(x)
                 print("POPPING PHASE ACTIVATED")
                 print(f"Done hand {country_hand}")
