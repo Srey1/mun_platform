@@ -454,13 +454,14 @@ def quick_raise():
                 x = country_hand.index(current_count)
                 country_hand.pop(x)
                 type_hand.pop(x)
+                print("REPLICA FOUND")
                 print(country_hand)
                 print(type_hand)
                 print(final_count)
                 print(final_vote)
                 return redirect("/")
 
-
+        print("REPLICA NOT FOUND")
         print(country_hand)
         print(type_hand)
         print(final_count)
