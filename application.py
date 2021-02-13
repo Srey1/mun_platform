@@ -98,6 +98,8 @@ def voting():
 
         vote = request.form.get("vote")
 
+        s = vote
+
         the_current_user = session["user_id"]
 
         acountry = User.query.filter_by(id=the_current_user).first()
@@ -118,32 +120,33 @@ def voting():
                 print("CHANGING")
                 x = countries.index(country)
                 earlier_vote = final_vote[x]
-                final_vote[x] = vote
+                final_vote[x] = s
                 if earlier_vote == "In Favor":
                     counter.pop()
                 elif earlier_vote == "Abstention":
                     counter1.pop()
                 elif earlier_vote == "Against":
                     counter2.pop()
-                if vote == "In Favor":
+                if s == "In Favor":
                     counter.append("a")
-                elif vote == "Abstention":
+                elif s == "Abstention":
                     counter1.append("a")
-                elif vote == "Against":
+                elif s == "Against":
                     counter2.append("a")
+                inside = True
                 print(f"After hand {country_hand}")
                 print(f"After hand {type_hand}")
                 print(f"After hand {final_count}")
                 print(f"After hand {final_vote}")
-        else:
+        if inside = False:
             final_count.append(country)
             final_vote.append(vote)
             countries.append(country)
-            if vote == "In Favor":
+            if s == "In Favor":
                 counter.append("a")
-            elif vote == "Abstention":
+            elif s == "Abstention":
                 counter1.append("a")
-            elif vote == "Against":
+            elif s == "Against":
                 counter2.append("a")
             print(f"After hand {country_hand}")
             print(f"After hand {type_hand}")
