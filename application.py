@@ -67,6 +67,8 @@ type_hand = []
 extra_count = []
 extra_vote = []
 
+sigh = [1, 2]
+
 #x = False
 
 
@@ -175,6 +177,8 @@ def voting():
 
         print(f"THE {extra_count}")
         print(f"THE {extra_vote}")
+
+        sigh.append(3)
 
 
 
@@ -435,6 +439,8 @@ def final_hope():
     if request.method == "POST":
         #country_hand.append("bye")
         #type_hand.append("please")
+        global extra_count
+        global extra_vote
         print(f"After Transfer {country_hand}")
         print(f"After Transfer {type_hand}")
         print(f"After Transfer {final_count}")
