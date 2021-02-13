@@ -399,9 +399,9 @@ def quick_raise():
 #@login_required
 def quick_close():
     global type_hand
-        global country_hand
-        global number_track
-        number_track = 0
-        country_hand = []
-        type_hand = []
-        return redirect("/c")
+    global country_hand
+    global number_track
+    number_track = 0
+    country_hand = []
+    type_hand = []
+    return redirect("/c")
