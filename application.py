@@ -408,6 +408,10 @@ def quick_raise():
 @app.route("/the_check", methods=["GET", "POST"])
 def lets_hope():
     if request.method == "POST":
+        global country_hand
+        global country_raise
+        global final_count
+        global final_vote
         print(f"Before Transfer {country_hand}")
         print(f"Before Transfer {type_hand}")
         print(f"Before Transfer {final_count}")
