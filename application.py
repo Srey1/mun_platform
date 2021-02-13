@@ -17,19 +17,13 @@ from datetime import timedelta
 app = Flask(__name__)
 #app.secret_key = os.urandom(24)
 app.config['SECRET_KEY'] = "This_is_the_seeeecccccreeet_thingzmagingz"
-# Ensure templates are auto-reloaded
-app.config["TEMPLATES_AUTO_RELOAD"] = True
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
 #login_manager.init_app(app)
 
-
-
 app.permanent_session_lifetime = timedelta(days=1)
-
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -48,10 +42,6 @@ def after_request(response):
 
 
 
-
-the_user = session["user_id"]
-before_country_raise = User.query.filter_by(id=the_user).first()
-current_count = before_country_raise.username
 
 amt = 0
 
@@ -74,14 +64,28 @@ number_hand = []
 country_hand = []
 type_hand = []
 
+#x = False
+
+
+
 @app.route("/voting", methods=["GET", "POST"])
 #@login_required
-
 def voting():
 
+    global amt
+    global forr
+    global agains
+    global obstain
     global counter
     global counter1
     global counter2
+    global final_count
+    global final_vote
+    global countries
+    global number_track
+    global number_hand
+    global country_hand
+    global type_hand
 
 
     options = ["In Favor", "Abstention", "Against"]
@@ -94,10 +98,11 @@ def voting():
 
         vote = request.form.get("vote")
 
-        the_user = session["user_id"]
+        the_current_user = session["user_id"]
 
-        crow = User.query.filter_by(id=the_user).first()
-        country = crow.username
+        acountry = User.query.filter_by(id=the_current_user).first()
+        country = acountry.username
+
 
         global countries
 
@@ -185,9 +190,11 @@ def voting():
         obstain = len(counter1)
 
         return redirect("/")
+
+
 @app.route("/", methods=["GET", "POST"])
-#@login_required
 def vot():
+
 
     global forr
     global agains
@@ -200,8 +207,7 @@ def vot():
     return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
 @app.route("/c", methods=["GET", "POST"])
-#@login_required
-def ccc():
+#def ccc():
     global forr
     global agains
     global obstain
@@ -211,7 +217,6 @@ def ccc():
 
 
     return render_template("chair.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
-
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -300,12 +305,43 @@ def login():
 
 
 
+
+
+@app.route("/chair", methods=["GET", "POST"])
+#@login_required
+def chair():
+    if request.method == "POST":
+        global counter
+        global counter1
+        global counter2
+        global final_count
+        global final_vote
+        global agains
+        global forr
+        global obstain
+        global amt
+        global countries
+        counter = []
+        counter1 = []
+        counter2 = []
+        final_count = []
+        final_vote = []
+        countries = []
+        amt = 0
+        forr = 0
+        agains = 0
+        obstain = 0
+        return redirect("/c")
+
+
 @app.route("/quickrefresh", methods=["GET", "POST"])
+#@login_required
 def refresh():
     if request.method == "POST":
         return redirect("/c")
 
 @app.route("/raise", methods=["GET", "POST"])
+#@login_required
 def raise_hand():
     if request.method == "GET":
         return render_template("raise.html")
@@ -315,9 +351,8 @@ def raise_hand():
         global number_track
         isit = False
         reason = request.form.get("raise_type")
-        ther_current_user = session["user_id"]
-        before_country_raise = User.query.filter_by(id=ther_current_user).first()
-        country_raise = before_country_raise.username
+        before = User.query.filter_by(id=the_current_user).first()
+        country_raise = before.username
 
 
         for items in country_hand:
@@ -333,16 +368,22 @@ def raise_hand():
         number_track = len(country_hand)
         return redirect("/")
 
+
+
+
+
 @app.route("/quickraise", methods=["GET", "POST"])
+#@login_required
 def quick_raise():
     if request.method == "POST":
         global type_hand
         global country_hand
         global number_track
         #sure = False
-        the_current_user = session["user_id"]
-        before_country_raise = User.query.filter_by(id=the_current_user).first()
-        country_count = before_country_raise.username
+        #sure = False
+        the_user = session["user_id"]
+        before_country_raise = User.query.filter_by(id=the_user).first()
+        current_count = before_country_raise.username
 
         for items in country_hand:
             if str(items) == str(current_count):
@@ -355,9 +396,9 @@ def quick_raise():
         return render_template("raise.html")
 
 @app.route("/alldown", methods=["GET", "POST"])
+#@login_required
 def quick_close():
-    if request.method == "POST":
-        global type_hand
+    global type_hand
         global country_hand
         global number_track
         number_track = 0
