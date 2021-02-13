@@ -172,9 +172,12 @@ def voting():
 
         amt = len(final_vote)
 
-        extra_count.append(country)
-        extra_vote.append(s)
 
+
+        global extra_count
+        global extra_vote
+        extra_count.append("abcd")
+        extra_vote.append("efgh")
         print(f"THE {extra_count}")
         print(f"THE {extra_vote}")
 
