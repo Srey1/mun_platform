@@ -105,6 +105,11 @@ def voting():
 
 
         global countries
+        global amt
+        global forr
+        global agains
+        global obstain
+        global number_track
 
         #countries[country] = vote
 
@@ -171,13 +176,7 @@ def voting():
                 #for items in countries.values():
                  #   final_vote.append(items)s
 
-            global amt
-            global forr
-            global agains
-            global obstain
-            global country_hand
-            global number_track
-            global type_hand
+
 
 
 
