@@ -405,6 +405,29 @@ def quick_raise():
 
         return render_template("raise.html")
 
+@app.route("/the_check", methods=["GET", "POST"])
+def lets_hope():
+    if request.method == "POST":
+        print(f"Before Transfer {country_hand}")
+        print(f"Before Transfer {type_hand}")
+        print(f"Before Transfer {final_count}")
+        print(f"Before Transfer {final_vote}")
+        return render_template("raise.html")
+
+
+@app.route("/the_finish", methods=["GET", "POST"])
+def final_hope():
+    if request.method == "POST":
+        country_hand.append("bye")
+        type_hand.append("please")
+        print(f"After Transfer {country_hand}")
+        print(f"After Transfer {type_hand}")
+        print(f"After Transfer {final_count}")
+        print(f"After Transfer {final_vote}")
+        return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+
+
+
 @app.route("/alldown", methods=["GET", "POST"])
 #@login_required
 def quick_close():
