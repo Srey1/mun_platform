@@ -161,6 +161,10 @@ def voting():
         if inside == False:
             final_count.append(country)
             final_vote.append(vote)
+            print(f"After hand {country_hand}")
+            print(f"After hand {type_hand}")
+            print(f"After hand {final_count}")
+            print(f"After hand {final_vote}")
 
             #print(countries)
 
@@ -202,6 +206,10 @@ def vot():
     global type_hand
     global country_hand
     global number_track
+    print(f"Current hand {country_hand}")
+    print(f"Current hand {type_hand}")
+    print(f"Current hand {final_count}")
+    print(f"Current hand {final_vote}")
 
 
     return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
@@ -351,8 +359,13 @@ def raise_hand():
         global number_track
         isit = False
         reason = request.form.get("raise_type")
-        before = User.query.filter_by(id=the_current_user).first()
+        curent_user = session["user_id"]
+        before = User.query.filter_by(id=current_user).first()
         country_raise = before.username
+        print(f"Before hand {country_hand}")
+        print(f"Before hand {type_hand}")
+        print(f"Before hand {final_count}")
+        print(f"Before hand {final_vote}")
 
 
         for items in country_hand:
@@ -361,10 +374,18 @@ def raise_hand():
                 earlier_raise = type_hand[x]
                 type_hand[x] = reason
                 isit = True
+                print(f"No hand {country_hand}")
+                print(f"No hand {type_hand}")
+                print(f"No hand {final_count}")
+                print(f"No hand {final_vote}")
 
         if isit == False:
             country_hand.append(country_raise)
             type_hand.append(reason)
+            print(f"After hand {country_hand}")
+            print(f"After hand {type_hand}")
+            print(f"After hand {final_count}")
+            print(f"After hand {final_vote}")
         number_track = len(country_hand)
         return redirect("/")
 
