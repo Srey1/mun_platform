@@ -200,10 +200,7 @@ def voting():
 @app.route("/", methods=["GET", "POST"])
 def vot():
 
-    print(f"Current hand {country_hand}")
-    print(f"Current hand {type_hand}")
-    print(f"Current hand {final_count}")
-    print(f"Current hand {final_vote}")
+
 
 
     global forr
@@ -212,6 +209,13 @@ def vot():
     global type_hand
     global country_hand
     global number_track
+    global final_vote
+    global final_count
+
+    print(f"Current hand {country_hand}")
+    print(f"Current hand {type_hand}")
+    print(f"Current hand {final_count}")
+    print(f"Current hand {final_vote}")
 
 
 
