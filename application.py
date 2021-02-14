@@ -415,7 +415,6 @@ def raise_hand():
                 print(f"No hand {final_vote}")
 
         """
-
         before.hand_up == reason
         db.session.commit()
         print("AAAANNNNNNDDDDD")
