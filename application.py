@@ -22,7 +22,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
 
-Session(app)
+#Session(app)
 #login_manager.init_app(app)
 
 app.permanent_session_lifetime = timedelta(days=1)
