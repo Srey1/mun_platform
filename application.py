@@ -206,6 +206,9 @@ def transf():
 
         print(f"THE {extra_count}")
         print(f"THE {extra_vote}")
+
+        return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+
     else:
         return render_template("voting.html", counter = counter, counter1 = counter1, counter2 = counter2, options = options)
 
