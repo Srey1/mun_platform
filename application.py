@@ -211,6 +211,8 @@ def transf():
         print(f"THE {extra_count}")
         print(f"THE {extra_vote}")
 
+        global tli
+
         tli += session["user_id"]
 
 
