@@ -403,7 +403,7 @@ def raise_hand():
         print(f"Before hand {final_count}")
         print(f"Before hand {final_vote}")
 
-
+        """
         for items in country_hand:
             if str(items) == str(country_raise):
                 l = country_hand.index(country_raise)
@@ -414,13 +414,16 @@ def raise_hand():
                 print(f"No hand {final_count}")
                 print(f"No hand {final_vote}")
 
-        if isit == False:
-            country_hand.append(country_raise)
-            type_hand.append(reason)
-            print(f"After raise {country_hand}")
-            print(f"After raise {type_hand}")
-            print(f"After raise {final_count}")
-            print(f"After raise {final_vote}")
+        """
+
+        before_country_raise.hand_up == reason
+        db.session.commit()
+        print("AAAANNNNNNDDDDD")
+        print(before_country_raise.hand_up)
+        print(f"After raise {country_hand}")
+        print(f"After raise {type_hand}")
+        print(f"After raise {final_count}")
+        print(f"After raise {final_vote}")
         number_track = len(country_hand)
         return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
@@ -442,6 +445,13 @@ def quick_raise():
         the_user = session["user_id"]
         before_country_raise = User.query.filter_by(id=the_user).first()
         current_count = before_country_raise.username
+
+
+        if before_country_raise.hand_up != "Nothing":
+            before_country_raise.hand_up == "Nothing"
+            db.session.commit()
+
+
 
         for items in country_hand:
             if str(items) == str(current_count):
