@@ -213,7 +213,7 @@ def transf():
 
         global tli
 
-        tli += session["user_id"]
+        tli.append(session["user_id"])
 
 
 
