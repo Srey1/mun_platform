@@ -416,7 +416,7 @@ def raise_hand():
 
         """
 
-        before_country_raise.hand_up == reason
+        before.hand_up == reason
         db.session.commit()
         print("AAAANNNNNNDDDDD")
         print(before_country_raise.hand_up)
