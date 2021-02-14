@@ -435,7 +435,6 @@ def raise_hand():
 @app.route("/quickraise", methods=["GET", "POST"])
 def quick_raise():
     if request.method == "POST":
-        return render_template("raise.html")
         print(f"Done hand {country_hand}")
         print(f"Done hand {type_hand}")
         print(f"Done hand {final_count}")
@@ -450,6 +449,13 @@ def quick_raise():
         if before_country_raise.hand_up != "Nothing":
             before_country_raise.hand_up == "Nothing"
             db.session.commit()
+            print("AAAANNNNNNDDDDD")
+            print(before_country_raise.hand_up)
+            return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
+
+
+        else:
+            return render_template("raise.html")
 
 
 
