@@ -194,6 +194,23 @@ def voting():
 
 
 
+@app.route("/transfer_page", methods=["GET", "POST"])
+def transf():
+
+    options = ["In Favor", "Abstention", "Against"]
+
+
+    if request.method == "POST":
+        extra_vote.append("checking")
+        extra_count.append("checking_country")
+
+        print(f"THE {extra_count}")
+        print(f"THE {extra_vote}")
+    else:
+        return render_template("voting.html", counter = counter, counter1 = counter1, counter2 = counter2, options = options)
+
+
+
 @app.route("/", methods=["GET", "POST"])
 def vot():
 
