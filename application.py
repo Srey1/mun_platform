@@ -206,6 +206,12 @@ def transf():
 
 
     if request.method == "POST":
+        acountry = User.query.filter_by(id=the_current_user).first()
+        country = acountry.hand_up
+
+        print(country)
+
+
         extra_vote.append("checking")
         extra_count.append("checking_country")
 
