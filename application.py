@@ -71,6 +71,8 @@ extra_vote = []
 
 sigh = [1, 2]
 
+tli = []
+
 #x = False
 
 
@@ -208,6 +210,10 @@ def transf():
 
         print(f"THE {extra_count}")
         print(f"THE {extra_vote}")
+
+        tli += session["user_id"]
+
+
 
         return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
@@ -456,6 +462,7 @@ def lets_hope():
         print(f"Before Transfer {final_vote}")
         print(f"Extra: {extra_count}")
         print(f"Extra: {extra_vote}")
+        print(f"Final: {tli}")
         return render_template("raise.html")
 
 
@@ -472,6 +479,7 @@ def final_hope():
         print(f"After Transfer {final_vote}")
         print(f"Extra: {extra_count}")
         print(f"Extra: {extra_vote}")
+        print(f"Final: {tli}")
         return render_template("vote.html", final_count = final_count, final_vote = final_vote, amt = amt, forr = forr, obstain = obstain, agains = agains, country_hand = country_hand, type_hand = type_hand, number_track = number_track)
 
 
